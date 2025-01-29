@@ -1,0 +1,26 @@
+{
+  "name": "EncoderAdapter",
+  "version": "0.5.0",
+  "description": "A very thin adapter class to enable different encoder libraries to provide the same API",
+  "keywords": "Arduino, ESP8266, ESP32, Teensy, encoder, InputEvents",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/Stutchbury/EncoderAdapter.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Philip Fletcher",
+      "email": "philip.fletcher@stutchbury.com",
+      "url": "https://stutchbury.com",
+      "maintainer": true
+    }
+  ],
+  "license": "GPL-2.0",
+  "homepage": "https://github.com/Stutchbury/EncoderAdapter/",
+  "dependencies": {
+  },
+  "frameworks": "Arduino",
+  "platforms": "*"
+}
