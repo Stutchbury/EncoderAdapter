@@ -9,24 +9,29 @@
 #include <PjrcEncoderAdapter.h>
 
 
-    PjrcEncoderAdapter::PjrcEncoderAdapter( uint8_t pin1, uint8_t pin2 )
-        : encoder(pin1, pin2)
+    PjrcEncoderAdapter::PjrcEncoderAdapter( uint8_t encoderPin1, uint8_t encoderPin2 )
         {
-            _pin1 = pin1;
-            _pin2 = pin2;
+            pinA = encoderPin1;
+            pinB = encoderPin2;
         };
+
+    PjrcEncoderAdapter::~PjrcEncoderAdapter() {
+        delete encoder;
+    }
+
 
     bool  PjrcEncoderAdapter::begin(void) {
         // PJRC's Encoder appears to have begin() functionality on its way but something has gone wrong with the versioning 
         // https://github.com/PaulStoffregen/Encoder/issues/106#issuecomment-2621583974
-        //encoder.begin(_pin1, _pin2);
+        //encoder->begin(pinA, pinB);
+        encoder = new Encoder(pinA, pinB); 
         return true;
     }
 
     int32_t PjrcEncoderAdapter::getPosition(void) {
-        return encoder.read();
+        return encoder->read();
     }
 
     void PjrcEncoderAdapter::setPosition(int32_t pos) {
-        encoder.write(pos);
+        encoder->write(pos);
     }

@@ -21,6 +21,11 @@ class EncoderAdapter {
 public:
 
     /**
+     * @brief Destructor to ensure predictable behavious if defrived classes are destroyed.
+     */
+    virtual ~EncoderAdapter() {}
+
+    /**
      * @brief For compatibility with the Arduino library convention.
      * 
      * @details Must be implemented (but can be empty) as some touch libraries require it. Can return a boolean to idicate if initialisation has failed.
