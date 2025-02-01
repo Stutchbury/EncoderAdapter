@@ -1,6 +1,6 @@
 {
   "name": "EncoderAdapter",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A very thin adapter class to enable different encoder libraries to provide the same API",
   "keywords": "Arduino, ESP8266, ESP32, Teensy, encoder, InputEvents",
   "repository":
