@@ -9,8 +9,9 @@
 #ifndef PjrcEncoderAdapter_h
 #define PjrcEncoderAdapter_h
 
-#include <Arduino.h>
-#include <Encoder.h>
+// Only create the adapter class if PJRC's Encoder is already included.
+#ifdef Encoder_h_
+
 #include <EncoderAdapter.h>
 
 /**
@@ -26,16 +27,22 @@ public:
     /**
      * @brief Construct a new Pjrc Encoder Adapter object
      * 
-     * @param pin1 The first encoder pin (sometimes known as pin A)
-     * @param pin2 The second encoder pin (sometimes known as pin B)
+     * @param encoderPin1 The first encoder pin (sometimes known as pin A)
+     * @param encoderPin2 The second encoder pin (sometimes known as pin B)
      */
-    PjrcEncoderAdapter( uint8_t encoderPin1, uint8_t encoderPin2 );
+    PjrcEncoderAdapter( uint8_t encoderPin1, uint8_t encoderPin2 )
+        {
+            pinA = encoderPin1;
+            pinB = encoderPin2;
+        };
 
     /**
      * @brief Destructor to ensure the PJRC encoder is deleted.
      * 
      */
-    ~PjrcEncoderAdapter();
+    ~PjrcEncoderAdapter() {
+        delete encoder;
+    }
 
 
     /**
@@ -44,21 +51,31 @@ public:
      * @return true 
      * @return false 
      */
-    bool begin(void);
+    bool begin(void) {
+        // PJRC's Encoder appears to have begin() functionality on its way but something has gone wrong with the versioning 
+        // https://github.com/PaulStoffregen/Encoder/issues/106#issuecomment-2621583974
+        //encoder->begin(pinA, pinB);
+        encoder = new Encoder(pinA, pinB); 
+        return true;
+    }
 
     /**
      * @brief Get the current position as reported by the Encoder class.
      * 
      * @return int32_t The position. May be positive or negative.
      */
-    int32_t getPosition(void);
+    int32_t getPosition(void) {
+        return encoder->read();
+    }
 
     /**
      * @brief Set the a new position of the encoder. This can be any value in the int32_t range.
      * 
      * @param pos The desired new position.
      */
-    void setPosition(int32_t pos);
+    void setPosition(int32_t pos) {
+        encoder->write(pos);
+    }
 
 private:
 
@@ -71,4 +88,6 @@ private:
 };
 
 
+
+#endif
 #endif
